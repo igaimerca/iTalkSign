@@ -1,0 +1,11 @@
+{
+  "name": "italksign",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/generate-dataset-manifest.js && vite",
+    "build": "node scripts/generate-dataset-manifest.js && vite build",
+    "preview": "vite preview",
+    "generate-manifest": "node scripts/generate-dataset-manifest.js"
+  }
+}

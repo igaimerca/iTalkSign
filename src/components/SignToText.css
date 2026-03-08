@@ -1,0 +1,117 @@
+.sign-to-text__output-area {
+  margin-bottom: 1.5rem;
+}
+
+.sign-to-text__label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.sign-to-text__word {
+  padding: 1rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  min-height: 4rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  letter-spacing: 0.05em;
+}
+
+.sign-to-text__word--empty {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.sign-to-text__actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn--secondary {
+  color: var(--text-secondary);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+}
+
+.btn--secondary:hover {
+  color: var(--text-primary);
+  border-color: var(--text-muted);
+}
+
+.btn--sm {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+}
+
+.sign-to-text__keyboard-hint {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.letter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: 0.5rem;
+}
+
+.letter-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.letter-btn:hover {
+  border-color: var(--accent);
+  background: var(--accent-muted);
+}
+
+.letter-btn:active {
+  transform: scale(0.97);
+}
+
+.letter-btn__img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  margin-bottom: 0.25rem;
+}
+
+.letter-btn__char {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+@media (min-width: 640px) {
+  .letter-grid {
+    grid-template-columns: repeat(9, 1fr);
+    gap: 0.6rem;
+  }
+
+  .letter-btn__img {
+    width: 56px;
+    height: 56px;
+  }
+}
