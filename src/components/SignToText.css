@@ -97,6 +97,19 @@
   margin-bottom: 0.25rem;
 }
 
+.letter-btn__symbol {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
 .letter-btn__char {
   font-family: var(--font-mono);
   font-size: 0.9rem;
@@ -110,8 +123,13 @@
     gap: 0.6rem;
   }
 
-  .letter-btn__img {
+  .letter-btn__img,
+  .letter-btn__symbol {
     width: 56px;
     height: 56px;
+  }
+
+  .letter-btn__symbol {
+    font-size: 1.5rem;
   }
 }

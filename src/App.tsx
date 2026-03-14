@@ -1,15 +1,17 @@
 import { useState } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
 import TextToSign from './components/TextToSign';
 import SignToText from './components/SignToText';
+import AdminDashboard from './components/AdminDashboard';
 import './App.css';
 
 type Tab = 'text-to-sign' | 'sign-to-text';
 
-export default function App() {
+function HomePage() {
   const [activeTab, setActiveTab] = useState<Tab>('text-to-sign');
 
   return (
-    <div className="app">
+    <>
       <header className="header">
         <div className="header-content">
           <h1 className="logo">
@@ -41,7 +43,6 @@ export default function App() {
           </nav>
         </div>
       </header>
-
       <main className="main">
         {activeTab === 'text-to-sign' && (
           <section
@@ -64,10 +65,25 @@ export default function App() {
           </section>
         )}
       </main>
-
       <footer className="footer">
-        <p>iTalkSign - Aime Igirimpuhwe</p>
+        <p>
+          iTalkSign — Aime Igirimpuhwe
+          <Link to="/admin" className="footer__admin">
+            {' · '}Admin
+          </Link>
+        </p>
       </footer>
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <div className="app">
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+      </Routes>
     </div>
   );
 }
