@@ -5,5 +5,5 @@ export default defineConfig({
   plugins: [react()],
   // Set GITHUB_PAGES=true during build for GitHub Pages project deployment.
   // Also ensure DATASET/ images are copied into public/ before building.
-  base: process.env.GITHUB_PAGES === 'true' ? '/iTalkSign/' : '/',
+  base: process.env.VITE_BASE_PATH ?? '/',
 });

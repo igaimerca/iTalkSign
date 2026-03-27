@@ -30,7 +30,8 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          GITHUB_PAGES: true
+          # Set to /repo-name/ for project pages, or leave unset (/) for user pages (username.github.io)
+          VITE_BASE_PATH: /
 
       - uses: actions/upload-pages-artifact@v3
         with:
