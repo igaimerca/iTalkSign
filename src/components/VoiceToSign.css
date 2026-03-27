@@ -1,0 +1,382 @@
+.vtosign {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+/* ── Hero ── */
+.vtosign__hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2.5rem 1rem 1.5rem;
+}
+
+.vtosign__mic-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vtosign__mic-btn {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  transition: transform var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+  z-index: 1;
+}
+
+.vtosign__mic-btn--idle,
+.vtosign__mic-btn--error {
+  background: var(--accent);
+  color: var(--bg-0);
+  box-shadow: 0 4px 24px rgba(0, 201, 167, 0.3);
+}
+
+.vtosign__mic-btn--idle:hover {
+  background: var(--accent-bright);
+  transform: scale(1.06);
+}
+
+.vtosign__mic-btn--listening {
+  background: var(--color-error);
+  box-shadow: 0 4px 24px rgba(239, 68, 68, 0.35);
+  animation: mic-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes mic-pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.06); }
+}
+
+/* Ripple rings */
+.vtosign__ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.25);
+  animation: ripple-expand 2s ease-out infinite;
+  pointer-events: none;
+}
+
+.vtosign__ripple--1 { width: 100px; height: 100px; animation-delay: 0s; }
+.vtosign__ripple--2 { width: 130px; height: 130px; animation-delay: 0.5s; }
+.vtosign__ripple--3 { width: 160px; height: 160px; animation-delay: 1s; }
+
+@keyframes ripple-expand {
+  0%   { opacity: 0.6; transform: scale(0.8); }
+  100% { opacity: 0;   transform: scale(1.2); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vtosign__mic-btn--listening,
+  .vtosign__ripple { animation: none; }
+}
+
+.vtosign__mic-icon { position: relative; z-index: 1; }
+
+.vtosign__status {
+  font-size: 0.95rem;
+  color: var(--text-1);
+  text-align: center;
+  min-height: 1.4em;
+}
+
+.vtosign__lang-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.75rem;
+  background: var(--bg-3);
+  border: 1px solid var(--border-1);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  color: var(--text-1);
+}
+
+/* ── Mic permission warning ── */
+.vtosign__mic-warn {
+  font-size: 0.8rem;
+  color: var(--color-warning);
+  text-align: center;
+  max-width: 320px;
+}
+
+/* ── Transcript ── */
+.vtosign__transcript-wrap {
+  background: var(--bg-2);
+  border: 1px solid var(--border-1);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+}
+
+.vtosign__transcript-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  margin-bottom: 0.75rem;
+}
+
+.vtosign__transcript {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  min-height: 2.4em;
+  color: var(--text-0);
+  word-break: break-word;
+}
+
+.vtosign__transcript-interim {
+  color: var(--text-1);
+  font-style: italic;
+}
+
+.vtosign__clear {
+  margin-top: 1rem;
+  padding: 0.4rem 0.875rem;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-1);
+  background: var(--bg-3);
+  border: 1px solid var(--border-1);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+
+.vtosign__clear:hover { color: var(--text-0); border-color: var(--border-2); }
+
+/* ── Output ── */
+.vtosign__output {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.vtosign__output-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-1);
+}
+
+.vtosign__char-count {
+  font-weight: 400;
+  color: var(--text-2);
+}
+
+/* ── Unsupported ── */
+.vtosign__unsupported {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 3rem 1rem;
+  text-align: center;
+  color: var(--text-1);
+}
+
+.vtosign__unsupported-icon { font-size: 3rem; }
+
+.vtosign__unsupported h2 {
+  font-size: 1.25rem;
+  color: var(--text-0);
+}
+
+.vtosign__unsupported p { max-width: 380px; font-size: 0.95rem; }
+
+/* ── Output header ── */
+.vtosign__output-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.vtosign__anim-btn {
+  padding: 0.45rem 1rem;
+  font-size: 0.875rem;
+}
+
+/* ── Animation panel ── */
+.vtosign__anim-panel {
+  background: var(--bg-1);
+  border: 1px solid var(--border-1);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  outline: none;
+}
+
+.vtosign__anim-close-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.vtosign__anim-pos {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-2);
+  margin-right: auto;
+}
+
+.vtosign__speed-row {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.vtosign__speed-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  background: var(--bg-3);
+  border: 1px solid var(--border-1);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+
+.vtosign__speed-btn--active {
+  background: var(--accent-muted);
+  border-color: rgba(0, 201, 167, 0.4);
+  color: var(--accent);
+}
+
+.vtosign__anim-close {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: var(--text-2);
+  background: var(--bg-3);
+  border: 1px solid var(--border-1);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.vtosign__anim-close:hover { color: var(--text-0); }
+
+.vtosign__anim-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  background: var(--bg-2);
+  border: 1.5px solid var(--border-1);
+  border-radius: var(--radius-lg);
+  min-width: 180px;
+}
+
+.vtosign__anim-img {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  animation: vtosign-fadein 0.2s var(--ease);
+}
+
+@keyframes vtosign-fadein {
+  from { opacity: 0; transform: scale(0.93); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vtosign__anim-img { animation: none; }
+}
+
+.vtosign__anim-symbol {
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.vtosign__anim-letter {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+
+.vtosign__progress-track {
+  width: 100%;
+  height: 4px;
+  background: var(--bg-3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.vtosign__progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width var(--dur-fast) var(--ease);
+}
+
+.vtosign__anim-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.vtosign__ctrl-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  background: var(--bg-3);
+  border: 1px solid var(--border-1);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--text-0);
+  transition: background var(--dur-fast) var(--ease);
+}
+
+.vtosign__ctrl-btn:hover:not(:disabled) { background: var(--bg-4); }
+.vtosign__ctrl-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.vtosign__ctrl-btn--play {
+  width: 52px;
+  height: 52px;
+  font-size: 1.4rem;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg-0);
+  border-radius: var(--radius-md);
+}
+
+.vtosign__ctrl-btn--play:hover { background: var(--accent-bright); }
+
+.vtosign__anim-hint {
+  font-size: 0.75rem;
+  color: var(--text-2);
+  text-align: center;
+}

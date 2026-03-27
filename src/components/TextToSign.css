@@ -1,102 +1,257 @@
-.text-to-sign__label {
-  display: block;
+.t2s {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+/* ── Input group ── */
+.t2s__input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.t2s__label {
+  font-size: 0.875rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  color: var(--text-0);
 }
 
-.text-to-sign__input-wrap {
-  margin-bottom: 0.5rem;
-}
-
-.text-to-sign__input {
+.t2s__input {
   width: 100%;
-  padding: 0.875rem 1rem;
+  padding: 0.85rem 1.1rem;
   font-family: var(--font-mono);
   font-size: 1.1rem;
-  color: var(--text-primary);
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  letter-spacing: 0.04em;
+  color: var(--text-0);
+  background: var(--bg-3);
+  border: 1.5px solid var(--border-1);
+  border-radius: var(--radius-md);
+  margin-top: 0.5rem;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
 }
 
-.text-to-sign__input::placeholder {
-  color: var(--text-muted);
+.t2s__input::placeholder { color: var(--text-2); }
+
+
+.t2s__hint {
+  font-size: 0.8rem;
+  color: var(--text-2);
 }
 
-.text-to-sign__input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-muted);
-}
-
-.text-to-sign__hint {
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  margin-bottom: 1.5rem;
-}
-
-.text-to-sign__output {
-  margin-top: 1.5rem;
-}
-
-.sign-strip {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  justify-content: flex-start;
-}
-
-.sign-card {
+/* ── Animation panel ── */
+.t2s__anim-panel {
+  background: var(--bg-1);
+  border: 1px solid var(--border-1);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1rem 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0.75rem;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  transition: border-color 0.2s, transform 0.15s;
+  gap: 1rem;
+  outline: none;
 }
 
-.sign-card:hover {
-  border-color: var(--accent);
+.t2s__anim-close-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.sign-card__img {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
-  margin-bottom: 0.5rem;
+.t2s__anim-pos {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-2);
+  margin-right: auto;
 }
 
-.sign-card__symbol {
-  width: 80px;
-  height: 80px;
+.t2s__speed-row {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.t2s__speed-btn {
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.5rem;
-  font-family: var(--font-mono);
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--text-secondary);
+  font-size: 0.9rem;
+  background: var(--bg-3);
+  border: 1px solid var(--border-1);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
 }
 
-.sign-card__letter {
-  font-family: var(--font-mono);
-  font-size: 1.25rem;
-  font-weight: 600;
+.t2s__speed-btn--active {
+  background: var(--accent-muted);
+  border-color: rgba(0, 201, 167, 0.4);
   color: var(--accent);
 }
 
-@media (min-width: 640px) {
-  .sign-card__img,
-  .sign-card__symbol {
-    width: 96px;
-    height: 96px;
-  }
-
-  .sign-card__symbol {
-    font-size: 2.5rem;
-  }
+.t2s__anim-close {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: var(--text-2);
+  background: var(--bg-3);
+  border: 1px solid var(--border-1);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease);
 }
+
+.t2s__anim-close:hover { color: var(--text-0); }
+
+/* ── Avatar card ── */
+.t2s__anim-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  background: var(--bg-2);
+  border: 1.5px solid var(--border-1);
+  border-radius: var(--radius-lg);
+  min-width: 180px;
+}
+
+.t2s__anim-img {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  animation: anim-fadein 0.2s var(--ease);
+}
+
+@keyframes anim-fadein {
+  from { opacity: 0; transform: scale(0.93); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t2s__anim-img { animation: none; }
+}
+
+.t2s__anim-symbol {
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--accent);
+  animation: anim-fadein 0.2s var(--ease);
+}
+
+.t2s__anim-letter {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+
+/* ── Progress bar ── */
+.t2s__progress-track {
+  width: 100%;
+  height: 4px;
+  background: var(--bg-3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.t2s__progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width var(--dur-fast) var(--ease);
+}
+
+/* ── Controls ── */
+.t2s__anim-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.t2s__ctrl-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  background: var(--bg-3);
+  border: 1px solid var(--border-1);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--text-0);
+  transition: background var(--dur-fast) var(--ease);
+}
+
+.t2s__ctrl-btn:hover:not(:disabled) { background: var(--bg-4); }
+.t2s__ctrl-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.t2s__ctrl-btn--play {
+  width: 52px;
+  height: 52px;
+  font-size: 1.4rem;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg-0);
+  border-radius: var(--radius-md);
+}
+
+.t2s__ctrl-btn--play:hover { background: var(--accent-bright); }
+
+.t2s__anim-hint {
+  font-size: 0.75rem;
+  color: var(--text-2);
+  text-align: center;
+}
+
+/* ── Output / strip header ── */
+.t2s__output { display: flex; flex-direction: column; gap: 1rem; }
+
+.t2s__output-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.t2s__output-count {
+  font-size: 0.875rem;
+  color: var(--text-1);
+}
+
+.t2s__anim-btn {
+  padding: 0.45rem 1rem;
+  font-size: 0.875rem;
+}
+
+/* ── Empty state ── */
+.t2s__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 3rem 1rem;
+  text-align: center;
+  color: var(--text-2);
+}
+
+.t2s__empty-icon {
+  font-size: 3rem;
+  opacity: 0.4;
+}
+
+.t2s__empty p { font-size: 0.95rem; max-width: 300px; }
