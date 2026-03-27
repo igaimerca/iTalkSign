@@ -28,6 +28,7 @@ export default function VoiceToSign() {
 
   const [accumulated, setAccumulated] = useState('');
   const [wantsListening, setWantsListening] = useState(false);
+  const [micError, setMicError] = useState<string | null>(null);
   const wantsListeningRef = useRef(false);
   const wasListeningRef = useRef(false);
 
@@ -37,6 +38,19 @@ export default function VoiceToSign() {
   const [speedIdx, setSpeedIdx] = useState(1);
   const intervalRef = useRef<number | null>(null);
   const animPanelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Debug information for GitHub Pages
+    console.log('VoiceToSign Debug Info:', {
+      browserSupportsSpeechRecognition,
+      isMicrophoneAvailable,
+      isSecureContext: window.isSecureContext,
+      userAgent: navigator.userAgent,
+      hostname: window.location.hostname,
+      protocol: window.location.protocol,
+      hasMediaDevices: !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)
+    });
+  }, [browserSupportsSpeechRecognition, isMicrophoneAvailable]);
 
   useEffect(() => {
     if (wasListeningRef.current && !listening) {
@@ -130,21 +144,71 @@ export default function VoiceToSign() {
     );
   }
 
-  const handleToggle = () => {
+  const requestMicrophonePermission = async (): Promise<boolean> => {
+    try {
+      setMicError(null);
+      
+      // Check if we're in a secure context (HTTPS required for microphone)
+      if (!window.isSecureContext) {
+        setMicError('Microphone access requires a secure connection (HTTPS). Please use https://igaimerca.github.io/iTalkSign/');
+        return false;
+      }
+      
+      // Check if getUserMedia is supported
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        setMicError('Microphone access not supported in this browser. Please try Chrome, Edge, or Safari 14.1+');
+        return false;
+      }
+      
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      stream.getTracks().forEach(track => track.stop());
+      return true;
+    } catch (error) {
+      console.error('Microphone permission denied:', error);
+      if (error instanceof Error) {
+        if (error.name === 'NotAllowedError') {
+          setMicError('Microphone access was denied. Please allow microphone access in your browser settings.');
+        } else if (error.name === 'NotFoundError') {
+          setMicError('No microphone found. Please connect a microphone and try again.');
+        } else if (error.name === 'NotReadableError') {
+          setMicError('Microphone is already in use by another application.');
+        } else {
+          setMicError('Microphone access failed. Please check your browser permissions.');
+        }
+      }
+      return false;
+    }
+  };
+
+  const handleToggle = async () => {
     if (wantsListening) {
       wantsListeningRef.current = false;
       setWantsListening(false);
       SpeechRecognition.stopListening();
     } else {
-      wantsListeningRef.current = true;
-      setWantsListening(true);
-      SpeechRecognition.startListening({ continuous: false, language: 'en-US' });
+      // Request microphone permission first
+      const hasPermission = await requestMicrophonePermission();
+      if (!hasPermission) {
+        return;
+      }
+      
+      try {
+        wantsListeningRef.current = true;
+        setWantsListening(true);
+        await SpeechRecognition.startListening({ continuous: false, language: 'en-US' });
+      } catch (error) {
+        console.error('Speech recognition failed to start:', error);
+        setMicError('Speech recognition failed to start. Please try again.');
+        wantsListeningRef.current = false;
+        setWantsListening(false);
+      }
     }
   };
 
   const handleClear = () => {
     wantsListeningRef.current = false;
     setWantsListening(false);
+    setMicError(null);
     SpeechRecognition.stopListening();
     resetTranscript();
     setAccumulated('');
@@ -185,6 +249,12 @@ export default function VoiceToSign() {
         {!isMicrophoneAvailable && (
           <p className="vtosign__mic-warn" role="alert">
             Microphone not available. Check your browser or system permissions.
+          </p>
+        )}
+
+        {micError && (
+          <p className="vtosign__mic-warn" role="alert">
+            {micError}
           </p>
         )}
 
