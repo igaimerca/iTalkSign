@@ -11,11 +11,13 @@ const folders = readdirSync(datasetPath, { withFileTypes: true })
   .filter((d) => d.isDirectory())
   .map((d) => d.name);
 
+const basePath = process.env.VITE_BASE_PATH || '/';
+
 for (const folder of folders) {
   const folderPath = join(datasetPath, folder);
   const files = readdirSync(folderPath).filter((f) => /\.(jpg|jpeg|png|gif)$/i.test(f));
   if (files.length > 0) {
-    manifest[folder] = `/DATASET/${folder}/${files[0]}`;
+    manifest[folder] = `${basePath}DATASET/${folder}/${files[0]}`;
   }
 }
 
