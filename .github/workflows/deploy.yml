@@ -31,7 +31,7 @@ jobs:
         run: npm run build
         env:
           # Set to /repo-name/ for project pages, or leave unset (/) for user pages (username.github.io)
-          VITE_BASE_PATH: /
+          VITE_BASE_PATH: /iTalkSign/
 
       - uses: actions/upload-pages-artifact@v3
         with:
