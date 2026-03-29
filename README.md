@@ -1,54 +1,74 @@
 # iTalkSign — ASL Sign Language Translator
 
-ASL alphabet and number translator with **text-to-sign** and **sign-to-text** modules.  
+A web app that translates between text and American Sign Language (ASL). Type text to see hand signs, or click signs to build words.
+
 **Author:** Aime Igirimpuhwe
 
-## Features
+## What You'll Need
 
-- **Text → Sign**: Type text to see ASL hand signs for each letter (A–Z, 0–9)
-- **Sign → Text**: Click sign images to build words letter by letter
-- **Admin dashboard** (`/admin`): Analytics on usage, letter frequency, sample words
-- Uses your local ASL dataset
-- Accessible UI with keyboard navigation and ARIA labels
-- Responsive layout for mobile and desktop
+- Node.js (version 16 or higher)
+- npm (comes with Node.js)
+- ASL hand sign images (jpg, png, or gif)
 
-## Dataset
+## Quick Setup
 
-Place your ASL dataset in the `DATASET` folder with this structure:
+### 1. Clone and Install
+
+```bash
+git clone <your-repo-url>
+cd iTalkSign
+npm install
+```
+
+### 2. Add Your ASL Images
+
+The app needs hand sign images in a `DATASET` folder. The project already has the folder structure ready - you just need to add your images:
 
 ```
 DATASET/
 ├── A/
-│   └── *.jpg
+│   └── your_A_sign.jpg
 ├── B/
-│   └── *.jpg
-…
+│   └── your_B_sign.jpg
+├── C/
+│   └── your_C_sign.png
+├── ...
 ├── Z/
+│   └── your_Z_sign.gif
 ├── 0/
-…
+│   └── your_0_sign.jpg
+├── ...
 └── 9/
+    └── your_9_sign.jpg
 ```
 
-Each folder should contain one or more images (jpg, jpeg, png, gif) for that letter or digit.
+**Important:** Each folder (A-Z, 0-9) needs at least one image file. The app automatically picks the first image it finds in each folder.
 
-## Development
+### 3. Run the App
 
 ```bash
-npm install
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173).
+Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-## Build
+That's it! The app will automatically generate a dataset manifest and start running.
+
+## What the App Does
+
+- **Text → Sign**: Type any text and see ASL signs for each letter and number
+- **Sign → Text**: Click on sign images to build words letter by letter  
+- **Admin Dashboard**: Visit `/admin` to see usage analytics and popular letters
+- **Voice Input**: Use your microphone to convert speech to signs (experimental)
+
+## For Production
 
 ```bash
 npm run build
 ```
 
-The build outputs to `dist/`. For production, serve the `dist` folder and ensure `DATASET` is available at `/DATASET/` (e.g., by copying or symlinking into `public/` before build).
+This creates a `dist/` folder. Deploy this folder to any web server. Make sure the `DATASET` folder is accessible at `/DATASET/` on your server (copy it to your public folder or create a symlink).
 
 ## Tech Stack
 
-- Vite + React + TypeScript
-- Dataset manifest generated at build/dev start
+Built with Vite, React, and TypeScript. The dataset manifest is automatically generated when you start the app or build for production.
